@@ -1,5 +1,5 @@
 # SearchMacAddress
-SearchMacAddress gems helps you to get the lists of the Mac Address of your system. It also provides a way to get a Mac Address, encode and decode it.
+SearchMacAddress helps you discover the IP addresses available on the current machine. It works in Ruby and Ruby on Rails applications and is designed to behave consistently on macOS, Linux, and Windows.
 
 ## Installation
 
@@ -19,22 +19,32 @@ Or install it yourself as:
 
 ## Usage
 
-To get set of mac addresses available on your system, use following code
+To get the list of usable IP addresses available on your system:
 ```
 SearchMacAddress::Filter.all_addr
 ```
 
-To get the mac address of your system, use following code
+You can also call the more explicit method name:
+```
+SearchMacAddress::Filter.all_ip_addr
+```
+
+To get the primary IP address of your system:
+```
+SearchMacAddress::Filter.ip_addr
+```
+
+The legacy method below is still supported for backward compatibility and now returns the primary IP address:
 ```
 SearchMacAddress::Filter.mac_addr
 ```
 
-To get encoded mac address inoder to keep it secure somewhere, use following code 
+To get an encoded version of the primary IP address:
 ```
 SearchMacAddress::Filter.encode
 ```
 
-To decode the mac address, supply encoded data to the decode()
+To decode the encoded IP address, supply encoded data to `decode()`:
 ```
 SearchMacAddress::Filter.decode(encoded_addr)
 ```
