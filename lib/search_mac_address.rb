@@ -4,34 +4,30 @@ require "base64"
 
 module SearchMacAddress
   class Filter
-    def self.all_addr
-      SearchMacAddress::AddrMac.get_physical_address
-    end
-
-    def self.mac_addr
-      addresses = all_addr
-      if addresses
-        return addresses.first 
-      else
-        nil
+    class << self
+      def all_ip_addr
+        SearchMacAddress::AddrMac.get_ip_addresses
       end
-    end
 
-    def self.encode
-      rec = mac_addr
-      if rec
-        Base64.urlsafe_encode64(rec)
-      else
-        ''
+      def all_addr
+        all_ip_addr
       end
-    end
 
-    def self.decode(addr)
-      rec = addr
-      if rec
-        Base64.urlsafe_decode64(rec)
-      else
-        ''
+      def ip_addr
+        all_ip_addr.first
+      end
+
+      def mac_addr
+        ip_addr
+      end
+
+      def encode
+        rec = ip_addr
+        rec ? Base64.urlsafe_encode64(rec) : ''
+      end
+
+      def decode(addr)
+        addr ? Base64.urlsafe_decode64(addr) : ''
       end
     end
   end
